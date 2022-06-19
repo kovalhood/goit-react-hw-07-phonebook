@@ -1,16 +1,20 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import actions from '../../redux/contacts/contacts-actions';
-import s from './ContactList.module.css';
 import { useGetContactsQuery, useDeleteContactMutation } from 'redux/contacts/contactsApi';
 import { getFilter } from 'redux/contacts/contactsSlice';
+import BarLoader from "react-spinners/BarLoader";
 import Notification from 'components/Notification';
+import s from './ContactList.module.css';
 
 const ContactList = () => {
-  const { data: contacts, isLoading, isSuccess } = useGetContactsQuery();
-  const filterValue = useSelector(getFilter);
-  const [deleteContact] = useDeleteContactMutation();
+  // Color for loader
+  const [color, setColor] = useState("#6495ed");
 
-const getVisibleContacts = () => {
+  const { data: contacts, isLoading, isSuccess } = useGetContactsQuery();
+  const [deleteContact] = useDeleteContactMutation();
+  const filterValue = useSelector(getFilter);
+
+const getContactsList = () => {
     if (filterValue === '') {
       return contacts;
     }
@@ -19,19 +23,19 @@ const getVisibleContacts = () => {
     );
   };
 
-  let items = getVisibleContacts();
-  console.log(items);
+  const items = getContactsList();
 
   return <ul className={s.contacts}>
-      {isLoading && (
-        <div className={s.loader}>
-          <p>Loading...</p>
-        </div>
-      )}
-      {isSuccess &&
-        items.map(({ id, name, phone }) => (
+    {isLoading && (
+      <div className={s.loader}>
+        <BarLoader color={color}/>
+      </div>
+    )}
+    
+    {isSuccess &&
+      items.map(({ id, name, phone }) => (
         <li key={id} className={s.item}>
-          <div>
+          <div className={s.test}>
             <p className={s.name}>{name}</p>
             <p className={s.number}>{phone}</p>
           </div>
@@ -40,12 +44,11 @@ const getVisibleContacts = () => {
             className={s.delete}>
             <i className="fa fa-times" aria-hidden="true"></i>
           </button>
-          </li>))}
+        </li>))}
+    
     {items && items.length === 0 && (
-        <Notification message="There are no contacts yet" />
-      )}
-      
-      
+      <Notification message="There are no contacts yet" />
+    )}
   </ul>
 }
 
