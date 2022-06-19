@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import s from './InputNumber.module.css';
 
-const InputNumber = ({ number, onNumberChange}) => {
+const InputNumber = ({ phone, onNumberChange}) => {
     return <input
       type="tel"
-      name="number"
+      name="phone"
       pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
       title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
       required
       placeholder='Enter number'
-      value={number}
+      value={phone}
       onChange={onNumberChange}
       className={s.input}
       // onKeyPress={(event) => {
@@ -21,7 +21,7 @@ const InputNumber = ({ number, onNumberChange}) => {
 }
 
 InputNumber.propTypes = {
-  number: PropTypes.string.isRequired
+  phone: PropTypes.string.isRequired
 }
 
 export default InputNumber;

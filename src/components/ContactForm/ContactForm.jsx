@@ -7,48 +7,24 @@ import InputName from './InputName';
 import InputNumber from './InputNumber';
 import Button from 'components/Button';
 import s from './ContactForm.module.css';
+import { nanoid } from 'nanoid';
+import { useGetContactsQuery, useAddContactMutation } from 'redux/contacts/contactsApi';
 
-function ContactForm() {
-    const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
-
-    const contacts = useSelector(getItems);
-    const filterValue = useSelector(getFilter);
-    const dispatch = useDispatch();
-
-    // Function for setting contacts in store
-    const handleContactInfo = () => {
-        dispatch(actions.addContact(name, number));
-        if (filterValue !== '') {
-            dispatch(actions.changeFilter(''));
-        }
-    };
-
-    const handleSubmit = event => {
-        event.preventDefault();
-
-        if (contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
-            if (filterValue !== '') {
-                dispatch(actions.changeFilter(''));
-            }
-            
-            return alert(`${name} is already in contacts`);
-        }
-
-        handleContactInfo();
-        resetForm();
-    };
-
+const ContactForm = () => {
+    const [form, setForm] = useState({ name: '', phone: '' });
+    const { data: contacts } = useGetContactsQuery();
+  const [addContact] = useAddContactMutation();
+    
     const handleChange = event => {
         const { name, value } = event.currentTarget;
         
         switch (name) {
             case 'name':
-                setName(value);
+                setForm(prevForm => ({ ...prevForm, [name]: value }));
                 break;
             
-            case 'number': {
-                setNumber(value);
+            case 'phone': {
+                setForm(prevForm => ({ ...prevForm, [name]: value }));
                 break;
             }
                 
@@ -57,18 +33,32 @@ function ContactForm() {
         }
     };
 
+      const handleSubmit = e => {
+    e.preventDefault();
+    const data = { ...form };
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === data.name.toLowerCase()
+      )
+    ) {
+      resetForm();
+      return alert(`Number: ${data.name} is already in phonebook`);
+    }
+    addContact(data);
+    resetForm();
+  };
+
     const resetForm = () => {
-        setName('');
-        setNumber('');
+        setForm({ name: '', phone: '' });
     };
 
     return <form onSubmit={handleSubmit} className={s.form}>
         <Label labelTitle={'Name'}>
-            <InputName name={name} onNameChange={handleChange}/>
+            <InputName name={form.name} onNameChange={handleChange}/>
         </Label>
         
         <Label labelTitle={'Number'}>
-            <InputNumber number={number} onNumberChange={handleChange} />
+            <InputNumber phone={form.phone} onNumberChange={handleChange} />
         </Label>
         
         <Button type={'submit'} title={"Add contact"} />
