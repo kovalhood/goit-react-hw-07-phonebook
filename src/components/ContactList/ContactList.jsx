@@ -5,6 +5,7 @@ import { getFilter } from 'redux/contacts/contactsSlice';
 import BarLoader from "react-spinners/BarLoader";
 import Notification from 'components/Notification';
 import sprite from '../../images/icons.svg';
+import { toast } from 'react-toastify';
 import s from './ContactList.module.css';
 
 const ContactList = () => {
@@ -46,7 +47,10 @@ const getContactsList = () => {
             </p>
           </a>
           <button type='button'
-            onClick={() => deleteContact(id)}
+            onClick={() => {
+              toast.success(`${name} is removed from your contacts`);
+              deleteContact(id)
+            }}
             className={s.delete}>
             <i className="fa fa-times" aria-hidden="true"></i>
           </button>

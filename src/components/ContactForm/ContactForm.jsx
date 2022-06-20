@@ -4,6 +4,7 @@ import Label from './Label';
 import InputName from './InputName';
 import InputNumber from './InputNumber';
 import Button from 'components/Button';
+import { toast } from 'react-toastify';
 import s from './ContactForm.module.css';
 
 const ContactForm = () => {
@@ -36,26 +37,30 @@ const ContactForm = () => {
     setForm(prevForm => ({ ...prevForm, [name]: value }));
   }
   const handlePhoneChange = phoneValue => {
-    // console.log(phoneValue);
     setForm(prevForm => ({ ...prevForm, phone: phoneValue }));
   }
 
   const handleSubmit = event => {
     event.preventDefault();
 
+    // Rules for fields
+    if (form.name === '' && form.phone === '') {
+      return toast.warn("Enter data of contact");
+    }
     if (form.name === '') {
-      return console.log('no name')
+      return toast.warn("Enter the name of contact");
     }
 
     if (form.phone === '') {
-      return console.log('no phone')
+      return toast.warn("Enter the phone number of contact");
     }
 
     if (contacts.find(contact => contact.name.toLowerCase() === form.name.toLowerCase())) {
       resetForm();
-      return alert(`${form.name} is already in contacts`);
+      return toast.info(`${form.name} is already in contacts`);
     }
 
+    toast.success(`${form.name} is added to your contacts`);
     addContact(form);
     resetForm();
   };
