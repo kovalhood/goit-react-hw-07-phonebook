@@ -8,15 +8,54 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
 }
 
 .item:not(:last-child){
     margin-bottom: 10px;
 }
 
+.name,
+.number{
+    width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 350px) {
+    .name,
+    .number {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .name,
+    .number {
+        width: 180px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+
+    .name,
+    .number {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .name,
+    .number {
+        width: 160px;
+    }
+}
+
 .name{
     margin-bottom: 5px;
     font-weight: bold;
+    line-height: normal;
     color: cornflowerblue;
 }
 
