@@ -56,7 +56,11 @@ const getContactsList = () => {
           </button>
         </li>))}
     
-    {items && items.length === 0 && (
+    {items && items.length === 0 && filterValue !== '' && (
+      <Notification message="There are no matched contacts" />
+    )}
+    
+    {items && items.length === 0 && filterValue === '' && (
       <Notification message="There are no contacts yet" />
     )}
   </ul>
