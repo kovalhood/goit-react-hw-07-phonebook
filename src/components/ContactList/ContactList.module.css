@@ -15,8 +15,14 @@
     margin-bottom: 10px;
 }
 
+.contact{
+    text-decoration: none;
+    outline: none;
+}
+
 .name,
-.number{
+.phone{
+    line-height: normal;
     width: 220px;
     white-space: nowrap;
     overflow: hidden;
@@ -25,14 +31,14 @@
 
 @media screen and (max-width: 350px) {
     .name,
-    .number {
+    .phone {
         width: 200px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .name,
-    .number {
+    .phone {
         width: 180px;
     }
 }
@@ -40,28 +46,63 @@
 @media screen and (max-width: 350px) {
 
     .name,
-    .number {
+    .phone {
         width: 200px;
     }
 }
 
 @media screen and (max-width: 300px) {
     .name,
-    .number {
+    .phone {
         width: 160px;
     }
 }
 
 .name{
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     font-weight: bold;
-    line-height: normal;
     color: cornflowerblue;
 }
 
-.number{
-    color: rgb(65, 65, 65);
+.phone{
+    
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    max-width: 220px;
     font-size: 14px;
+    text-decoration: none;
+    color: rgb(65, 65, 65);
+    transition: all 0.3s;
+}
+
+.icon{
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    fill: seagreen;
+    border-radius: 5px;
+    transform: scale(0);
+    transition: all 0.2s;
+}
+
+.number{
+    margin-left: -15px;
+    transition: all 0.3s;
+}
+
+.contact:hover .icon,
+.contact:focus .icon{
+    visibility:visible;
+    transform: scale(1);
+}
+
+.contact:hover .number,
+.contact:focus .number {
+    margin-left: 5px;
 }
 
 .delete{

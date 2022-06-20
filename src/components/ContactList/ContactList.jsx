@@ -4,6 +4,7 @@ import { useGetContactsQuery, useDeleteContactMutation } from 'redux/contacts/co
 import { getFilter } from 'redux/contacts/contactsSlice';
 import BarLoader from "react-spinners/BarLoader";
 import Notification from 'components/Notification';
+import sprite from '../../images/icons.svg';
 import s from './ContactList.module.css';
 
 const ContactList = () => {
@@ -35,10 +36,15 @@ const getContactsList = () => {
     {isSuccess &&
       items.map(({ id, name, phone }) => (
         <li key={id} className={s.item}>
-          <div className={s.test}>
+          <a href={`tel:${phone}`} className={s.contact}>
             <p className={s.name}>{name}</p>
-            <p className={s.number}>{phone}</p>
-          </div>
+            <p className={s.phone}>
+              <svg className={s.icon} aria-label="logo">
+                <use href={`${sprite}#phone`}></use>
+              </svg>
+              <span className={s.number}>{phone}</span>
+            </p>
+          </a>
           <button type='button'
             onClick={() => deleteContact(id)}
             className={s.delete}>
