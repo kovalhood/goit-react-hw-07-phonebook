@@ -8,7 +8,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
 }
 
 .item:not(:last-child){
@@ -43,14 +42,6 @@
     }
 }
 
-@media screen and (max-width: 350px) {
-
-    .name,
-    .phone {
-        width: 200px;
-    }
-}
-
 @media screen and (max-width: 300px) {
     .name,
     .phone {
@@ -65,18 +56,15 @@
 }
 
 .phone{
-    
     display: flex;
     align-items: center;
-    width: fit-content;
-    max-width: 220px;
     font-size: 14px;
     text-decoration: none;
     color: rgb(65, 65, 65);
     transition: all 0.3s;
 }
 
-.icon{
+.phone_icon{
     visibility: hidden;
     display: flex;
     justify-content: center;
@@ -89,19 +77,19 @@
     transition: all 0.2s;
 }
 
-.number{
+.phone_number{
     margin-left: -15px;
     transition: all 0.3s;
 }
 
-.contact:hover .icon,
-.contact:focus .icon{
+.contact:hover .phone_icon,
+.contact:focus .phone_icon{
     visibility:visible;
     transform: scale(1);
 }
 
-.contact:hover .number,
-.contact:focus .number {
+.contact:hover .phone_number,
+.contact:focus .phone_number {
     margin-left: 5px;
 }
 
