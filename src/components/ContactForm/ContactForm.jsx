@@ -78,7 +78,7 @@ const ContactForm = () => {
       <InputNumber phone={form.phone} onNumberChange={handlePhoneChange} />
     </Label>
     
-    <Button type={'submit'} title={"Add contact"} />
+    <Button type={'submit'} symbol={'+'} title={'Add contact'} />
   </form>
 };
 
